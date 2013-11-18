@@ -1,1 +1,0 @@
-{"keys":{"alarm":["id","description","time_beg","time_end"]},"84777":{"alarm":[4,"Temperatura del bulbo seco alta",1361662267.076,1361662377.586]},"84460":{"alarm":[4,"Temperatura del bulbo seco alta",1361661915.467,1361662060.703]}}

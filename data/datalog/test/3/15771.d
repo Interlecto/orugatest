@@ -1,1 +1,0 @@
-{"keys":{"ahc80plus":["id","temp_dry","temp_wet","humidity","ST1","ST2","time","period"]},"57513":{"ahc80plus":[3,13.3,12,87,false,false,1362671913.786,60000]}}
