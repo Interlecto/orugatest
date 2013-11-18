@@ -1,0 +1,27 @@
+		<article>
+			<form action="enviar.html" class=formulario method=POST>
+				<table>
+				<tr>
+				<td><input type=radio name=type value=inquietud id=inquietud checked=checked><label for=inquietud> inquietud</label></td>
+				<td><input type=radio name=type value=contacto id=contacto><label for=contacto> contacto</label></td>
+				</tr>
+				<tr>
+				<td rowspan=3>Tus datos:</td>
+				</tr>
+				<tr>
+				<td><label for=nombre>Nombre</label></td>
+				<td colspan=2><input name=nombre id=nombre value="{var:from:nombre}"></td>
+				</tr>
+				<tr>
+				<td><label for=email>Email</label></td>
+				<td colspan=2><input name=email id=email value="{var:from:email}"></td>
+				</tr>
+				</table>
+				<textarea name=comment></textarea>
+				<p>
+					<input type=hidden name=emailto value="{var:emailto}">
+					<input type=submit name=go value=Enviar>
+				</p>
+			</form>
+		</article>
+	

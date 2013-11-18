@@ -1,0 +1,14 @@
+id:7
+data:41325.4984674074
+temperatura1:240
+temperatura2:240
+tensao:165
+def:0
+fan:1
+comp:1
+alrm:0
+eco:1
+digital1:0
+digital2:1
+estagio:2
+periodo:60000

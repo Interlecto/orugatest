@@ -1,0 +1,95 @@
+/*** Flow ***/
+.newsfeed,.timefeed,.itemlist{padding:5px}
+.newsfeed .item,.timefeed .item,.itemlist .item{position:relative;margin:0 0 5px;padding-left:52px}
+.avatar-link{display:block;position:absolute;top:0;left:0;height:100%;width:48px;padding:2px}
+.avatar{width:48px;height:48px}
+.desc-link{display:block;min-height:52px}
+.item-date{display:block}
+.line{display:block}
+
+#news h2,.note{padding-left:5px}
+
+/*** Style ***/
+.wid{margin:0 5px 5px 0;padding:0 5px;background:#eee}
+.wid a:hover{background:#ddd;text-decoration:none}
+.wid h3{text-transform:uppercase;font-size:1em;color:#933}
+.subitem{background:transparent url('images/subitem.png') no-repeat 2px 2px}
+.subitem.vias{background-image:url('images/vias.png')}
+.subitem.flores{background-image:url('images/flores.png')}
+.newsfeed{background:#ddd}
+.newsfeed .item{border:1px solid #aaa}
+.avatar{background:#bbb}
+.desc-link:hover{text-decoration:none}
+.desc-link:hover .item-date,.desc-link:hover strong{color:#a00}
+.item-date{font-size:.75em;font-weight:bold}
+.note h3{margin:1ex 0 .5ex;font-size:1em}
+.note-body{font-size:.875em}
+.note-body p{margin:.5ex 0}
+.note-footer{margin:.5ex 0 1ex;font-size:.75em}
+pre{width:100%;max-height:50em;overflow:auto}
+hr.clear{clear:both;margin:0;border:none}
+
+#maqs{list-style:none;padding:0;margin:0;width:100%;height:2em;font-size:.9em;margin:0 0 2em;position:relative;z-index:100}
+#maqs li.maq0{display:block;float:left;position:relative;}
+#maqs li.maq0 a{display:block;padding:2px 3px;}
+#maqs li.maq0 ul{position:absolute;list-style:none;margin:0;padding:0;left:1em;display:none;background:#eee;border:1px #ccc solid;}
+#maqs li.maq0 li{padding:0;}
+#maqs li.maq0 li a{padding:0 3px;}
+#maqs li.maq0:hover{background:#eee;}
+#maqs li.maq0:hover>ul{display:block;}
+
+.repuesto,
+.maquina{position:relative;width:200px;height:150px;float:left;border-radius:5px;overflow:hidden;margin:0 5px 5px 0;}
+.entryicon{position:absolute;width:200px;height:150px;top:0;left:0;}
+.entrytitle{display:block;position:absolute;text-align:center;top:0;left:0;right:0;padding:4px;font-size:1.1em;background:#000;color:#fff;opacity:.4;}
+.entrytext{display:block;position:absolute;text-align:center;top:35px;left:0;right:0;bottom:35px;padding:4px;color:#000}
+.entryprice{display:block;position:absolute;text-align:center;bottom:0;left:0;right:0;padding:3px;font-style:normal;color:#000;}
+.maquina:hover .entrytitle,
+.repuesto:hover .entrytitle{opacity:.6;}
+
+.lalign{text-align:left}
+.ralign{text-align:right}
+.calign{text-align:center}
+.jalign{text-align:justify}
+.datasheet{border-collapse:collapse}
+.datasheet td{padding:0 1ex;border:1px solid #aaa}
+.datasheet th{padding:0 .3ex}
+
+.alarm{font-size:.9em;font-weight:bold;color:#900}
+p.status{margin:4px;border:1px #090 solid;padding:4px;background:#f8f4ec}
+.grayed{color:#aaa}
+.grayed{color:rgba(0,0,0,.33333)}
+
+p.nav{color:#5a5;font-size;.9333334em}
+p.nav a{font-weight:bold;font-size;.9333334em}
+
+article p{margin:.5ex 0}
+
+em.aside{font-style:normal;position:absolute;right:0;top:0}
+
+ul.tabs{list-style:none;padding:0 1ex;position:relative;left:0;right:0}
+li.tab{display:block;float:left;}
+input.anchor,.tab a{display:block;font-size:16px;margin:3px 0 0;padding:.5ex 1ex .3ex;border:1px outset #aaa;border-bottom:none;background:#eee;color:#555}
+input.anchor:hover,.tab a:hover{text-decoration:none;background:#fff;color:#000}
+input.anchor.selected,.tab a.selected{background:#ccc;cursor:default}
+.tab a.selected:hover{background:#ccc;color:#555}
+input.anchor{cursor:pointer}
+.tabs .panel{position:absolute;left:0;right:0;padding:1ex;background:#eee;border:1px outset #aaa}
+ul.tabs:after{content:'aaa ';display:block;clear:both;height:5em}
+
+input.anchor,.tab a{border-radius:1.25ex 1.25ex 0 0/100% 100% 0 0;box-shadow:inset .5ex .75ex .5ex rgba(255,255,255,.5)}
+.tabs .panel{border-radius:1ex;box-shadow:inset .5ex .75ex .5ex rgba(255,255,255,.5),inset -.25ex -.375ex .5ex rgba(0,0,0,.5)}
+
+.labels{display:block;list-style:none;float:right}
+.labels ol{display:block;list-style:none;padding:0 0 0 10px}
+.labels ol ol{display:block;list-style:none;padding:0}
+.labels li{display:block;min-height:2em;font-size:14px}
+
+.uilabel{display:inline-block}
+.uimid{min-width:7em}
+.centered{text-align:center}
+.shorttext{width:6em}
+.midtext{width:15em}
+.longtext{width:24em}
+.numeric{width:7em;text-align:right}
+

@@ -1,0 +1,1 @@
+{"keys":{"alarm":["id","description","time_beg","time_end"]},"17258":{"alarm":[2,"Temperatura ambiente baja",1361508458.763,1361519998.54]},"28800":{"alarm":[2,"Temperatura ambiente baja",1361520000.147,1361544604.073]},"53404":{"alarm":[2,"Temperatura ambiente baja",1361520000.147,1361544604.073]},"28798":{"alarm":[2,"Temperatura ambiente baja",1361508458.763,1361519998.54]}}

@@ -1,0 +1,176 @@
+<?php
+
+function uridecode($str) {
+	$ans = array();
+	$r = explode('&',$str);
+	foreach($r as $ex) {
+		$o = explode('=',$ex);
+		$ans[urldecode($o[0])] = urldecode($o[1]);
+	}
+	return $ans;
+	return print_r($ans,true);
+}
+
+function make_datalog($line) {
+	il_put('templatefile','raw.txt');
+	il_put('type','text');
+	header('Content-type: text/plain');
+	if(substr($line,-4)!='.cgi')
+		return reply_status(404,null,"Update script not found");
+
+	$ts = (int)(time()/300);
+	$code = substr($line,0,-4);
+	$pp = array();
+	if(isset($_GET['from']))
+		return validate_get($_GET['from'],$code,$ts);
+	if(isset($_POST['from']))
+		return validate_post($_POST['from'],$code,$ts);
+
+	return reply_status(404,null,"Incomplete data");
+}
+
+function sdate2ascii($d,$format='Ymd-His') {
+	static $days;
+	if(!isset($days)) {
+		$days = 365*70 + 18;
+	}
+	$t = ($d-$days)*86400;
+	#echo "$t $d \n";
+	return date($format,$t);
+}
+
+function validate_get($from,$base,$ts) {
+	if($from!=$base)
+		return reply_status(401,null,"Malformed Keepalive","Unauthorized of malformed keepalive.");
+	$f = file('data/datalog/stations.db');
+	$ss = array();
+	foreach($f as $l) {
+		$k = explode(',',$l);
+		if(count($k)<2) continue;
+		$ss[trim($k[0])] = trim($k[1]);
+	}
+	if(!isset($ss[$from]))
+		return reply_status(404,null,"Station not found","Station '$from' not found.");
+	$san = 9999;
+	$hh = Null;
+	foreach($_GET as $key=>$val) {
+		if(preg_match('{^R(\d{4})$}',$key,$m)) {
+			$san = (int)$m[1];
+			$hh = $val;
+		}
+	}
+	if(!$hh)
+		return reply_status(401,null,"Malformed Keepalive","This keepalive is not signed.");
+	$rocks = array(
+		sprintf("[%09d%-9s:%4d]",$ts,$from,$san),
+		md5(sprintf("[%09d%-9s:%4d]",$ts-1,$from,$san)),
+		md5(sprintf("[%09d%-9s:%4d]",$ts,$from,$san)),
+		md5(sprintf("[%09d%-9s:%4d]",$ts+1,$from,$san)),
+	);
+	if(!in_array($hh,$rocks))
+		return reply_status(401,null,"Malformed Keepalive","Incorrect signature.");
+	if(($ip = $_SERVER['REMOTE_ADDR'])!=$ss[$from]) {
+		$ss[$from] = $ip;
+		$sst = '';
+		foreach($ss as $f=>$i) {
+			$sst.="$f,$i\n";
+		}
+		file_put_contents('data/datalog/stations.db',$sst);
+		return reply_status(201,null,"Keepalive from $from","Keepalive from $from from IP $ip.");
+	}
+	return reply_status(200,null,"Keepalive from $from");
+}
+
+function xxxx($str) {
+	echo $str;
+	return 0;
+}
+function validate_post($from,$base,$ts) {
+	if($from!=$base)
+		return reply_status(401,null,"Malformed Update","Unauthorized of malformed update.");
+	$f = file('data/datalog/stations.db');
+	$ss = array();
+	foreach($f as $l) {
+		$k = explode(',',$l);
+		if(count($k)<2) continue;
+		$ss[trim($k[0])] = trim($k[1]);
+	}
+	if(!isset($ss[$from]))
+		return reply_status(404,null,"Station not found","Station '$from' not found.");
+	if(!is_dir("data/datalog/$from"))
+		ensure_path(array('data','datalog',$from));
+	$san = 9999;
+	$hh = Null;
+	$sign = Null;
+	$pp = array();
+	$content = '';
+	$inst = array();
+	$update = array();
+	foreach($_POST as $key=>$val) {
+		if($key=='sign') {
+			$sign = $val;
+		} else {
+			$pp[] = urlencode($key).'='.urlencode($val);
+			if(preg_match('{^R(\d{4})$}',$key,$m)) {
+				$san = (int)$m[1];
+				$hh = $val;
+			} elseif(substr($key,0,5)=='inst-') {
+				$x = uridecode($val);
+				$id = isset($x['id'])? (int)$x['id']: xxxx("No 'id' in $key: ".print_r($x,true));
+				$inst[$id] = $x;
+			} elseif(substr($key,0,7)=='update-') {
+				$x = uridecode($val);
+				$id = isset($x['id'])? (int)$x['id']: xxxx("No 'id' in $key: ".print_r($x,true));
+				$dn = isset($x['data'])? (float)$x['data']: (isset($x['dataInicio'])? (float)$x['dataInicio']: 0.0);
+				$dt = sdate2ascii($dn);
+				if(!isset($update[$id])) $update[$id]=array();
+				$update[$id][$dt] = $x;
+			} elseif($key!='from') {
+				$content.= sprintf("%-12s %s\n","$key:",uridecode($val));
+			}
+		}
+	}
+	if(!$sign)
+		return reply_status(401,null,"Malformed Update","This update does not have verification code.");
+	$prepar = 'O:'.implode('&',$pp).':A';
+	if($sign !== md5($prepar))
+		return reply_status(401,null,"Malformed Update","This update's verification code is invalid.\n$prepar\n");
+	if(!$hh)
+		return reply_status(401,null,"Malformed Update","This update is not signed.");
+	$rocks = array(
+		sprintf("[%09d%-9s:%4d]",$ts,$from,$san),
+		md5(sprintf("[%09d%-9s:%4d]",$ts-1,$from,$san)),
+		md5(sprintf("[%09d%-9s:%4d]",$ts,$from,$san)),
+		md5(sprintf("[%09d%-9s:%4d]",$ts+1,$from,$san)),
+	);
+	if(!in_array($hh,$rocks))
+		return reply_status(401,null,"Malformed Update","Incorrect signature.");
+	$ii = array_keys($inst);
+	sort($ii);
+	foreach($ii as $id) {
+		array2dat("data/datalog/$from/$id.inst",$inst[$id],array('id','descricao','endereco','status','datacad','dataexcl','modelo','tipo','tipo2'));
+		$content.= "Instrumento $id: ".print_r($inst[$id],true);
+		ensure_path(array('data','datalog',$from,$id));
+		$jj = array_keys($update[$id]);
+		rsort($jj);
+		foreach($jj as $dt) {
+			$day = substr($dt,0,8);
+			$d = ensure_path(array('data','datalog',$from,$id,$day));
+			if(!file_exists($fn=$d.substr($dt,9)))
+				array2dat($fn,$update[$id][$dt],array('id','data','dataInicio','dataFim'));
+			$content.= "Actualización $dt: ".print_r($update[$id][$dt],true);
+		}
+	}
+	if(($ip = $_SERVER['REMOTE_ADDR'])!=$ss[$from]) {
+		$ss[$from] = $ip;
+		$sst = '';
+		foreach($ss as $f=>$i) {
+			$sst.="$f,$i\n";
+		}
+		file_put_contents('data/datalog/stations.db',$sst);
+		return reply_status(201,null,"Update from $from","Update from $from from IP $ip.\n");
+	}
+	return reply_status(201,null,"Update from $from","Update from $from.\n");
+}
+
+?>

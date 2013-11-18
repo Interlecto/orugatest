@@ -1,0 +1,3 @@
+load:user.php
+path:login;/makelogin
+path:user;/makeuser

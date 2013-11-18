@@ -1,0 +1,1 @@
+{"keys":{"alarm":["id","description","time_beg","time_end"]},"61221":{"alarm":[7,"Temperatura del bulbo seco baja",1363625995.348,1363626021.571]}}

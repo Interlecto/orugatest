@@ -1,0 +1,10 @@
+path:;root.php/makeroot
+path:about;root.php/makeroot
+alias:nosotros;about
+path:status;root.php/makestatus
+mkdir:data/base
+mkdir:data/base/about
+path:lib;root.php/forbidden
+path:mod;root.php/forbidden
+path:data;root.php/forbidden
+mkdir:data/base/status

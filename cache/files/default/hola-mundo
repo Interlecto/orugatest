@@ -1,0 +1,92 @@
+Array
+(
+    [GLOBALS] => Array
+ *RECURSION*
+    [_POST] => Array
+        (
+        )
+
+    [_GET] => Array
+        (
+        )
+
+    [_COOKIE] => Array
+        (
+            [PHPSESSID] => 26el7q7717ur68gf43o2ui8as7
+            [user] => chlewey
+            [user_expires] => 1358519755
+        )
+
+    [_FILES] => Array
+        (
+        )
+
+    [_IL] => Array
+        (
+            [sitename] => Oruga Amarilla
+            [cachable] => 1
+            [user] => chlewey
+            [line] => hola-mundo
+        )
+
+    [_REQUEST] => Array
+        (
+        )
+
+    [_SERVER] => Array
+        (
+            [REDIRECT_MIBDIRS] => C:/xampp/php/extras/mibs
+            [REDIRECT_MYSQL_HOME] => \xampp\mysql\bin
+            [REDIRECT_OPENSSL_CONF] => C:/xampp/apache/bin/openssl.cnf
+            [REDIRECT_PHP_PEAR_SYSCONF_DIR] => \xampp\php
+            [REDIRECT_PHPRC] => \xampp\php
+            [REDIRECT_TMP] => \xampp\tmp
+            [REDIRECT_STATUS] => 200
+            [MIBDIRS] => C:/xampp/php/extras/mibs
+            [MYSQL_HOME] => \xampp\mysql\bin
+            [OPENSSL_CONF] => C:/xampp/apache/bin/openssl.cnf
+            [PHP_PEAR_SYSCONF_DIR] => \xampp\php
+            [PHPRC] => \xampp\php
+            [TMP] => \xampp\tmp
+            [HTTP_HOST] => oruga.local
+            [HTTP_USER_AGENT] => Mozilla/5.0 (Windows NT 6.1; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0
+            [HTTP_ACCEPT] => text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+            [HTTP_ACCEPT_LANGUAGE] => es-ES,es;q=0.8,en-US;q=0.5,en;q=0.3
+            [HTTP_ACCEPT_ENCODING] => gzip, deflate
+            [HTTP_CONNECTION] => keep-alive
+            [HTTP_COOKIE] => PHPSESSID=26el7q7717ur68gf43o2ui8as7; user=chlewey; user_expires=1358519755
+            [HTTP_CACHE_CONTROL] => max-age=0
+            [PATH] => C:\Program Files\ImageMagick-6.7.5-Q16;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files (x86)\Quest Software\vWorkspace Client\;
+            [SystemRoot] => C:\Windows
+            [COMSPEC] => C:\Windows\system32\cmd.exe
+            [PATHEXT] => .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC
+            [WINDIR] => C:\Windows
+            [SERVER_SIGNATURE] => <address>Apache/2.2.17 (Win32) mod_ssl/2.2.17 OpenSSL/0.9.8o PHP/5.3.4 mod_perl/2.0.4 Perl/v5.10.1 Server at oruga.local Port 80</address>
+
+            [SERVER_SOFTWARE] => Apache/2.2.17 (Win32) mod_ssl/2.2.17 OpenSSL/0.9.8o PHP/5.3.4 mod_perl/2.0.4 Perl/v5.10.1
+            [SERVER_NAME] => oruga.local
+            [SERVER_ADDR] => 127.0.6.1
+            [SERVER_PORT] => 80
+            [REMOTE_ADDR] => 127.0.0.1
+            [DOCUMENT_ROOT] => C:/Users/chlewey/webs/oruga
+            [SERVER_ADMIN] => postmaster@oruga.local
+            [SCRIPT_FILENAME] => C:/Users/chlewey/webs/oruga/i.php
+            [REMOTE_PORT] => 53406
+            [REDIRECT_URL] => /hola-mundo
+            [GATEWAY_INTERFACE] => CGI/1.1
+            [SERVER_PROTOCOL] => HTTP/1.1
+            [REQUEST_METHOD] => GET
+            [QUERY_STRING] => 
+            [REQUEST_URI] => /hola-mundo
+            [SCRIPT_NAME] => /i.php
+            [PHP_SELF] => /i.php
+            [REQUEST_TIME] => 1357920560
+        )
+
+    [_SESSION] => Array
+        (
+            [def_user] => username
+            [user] => chlewey
+        )
+
+)

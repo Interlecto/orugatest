@@ -1,0 +1,17 @@
+,Inicio
+aplicacion/,Aplicación
+portafolio,Portafolio
+	venta/,Compra y venta de maquinaria
+		venta/vias,Construcción de vías
+		venta/construccion,Construcción vertical
+		venta/industria,Sector industrial
+		venta/agro,Sector agrícola
+	alquiler/,Alquiler de maquinaria
+		alquiler/vias,Construcción de vías
+		alquiler/construccion,Construcción vertical
+		alquiler/industria,Sector industrial
+		alquiler/agro,Sector agrícola
+	repuestos/,Compra y venta de repuestos
+notas/,Artículos
+nosotros/,Quienes somos
+contacto/,Contacto

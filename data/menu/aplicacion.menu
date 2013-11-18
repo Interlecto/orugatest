@@ -1,0 +1,24 @@
+-,Agrícola,ap-agro
+	calefactores/,Calefactores
+	marly/,Elite - Finca Marly
+	san_pedro/,Elite - Finca San Pedro
+	ginegar/,Ginegar
+	invermeq/,Invermeq
+	singha/,Singha
+	finca_sarama/,Sunshine - Finca Sarama
+	timana/,Timaná
+	tutorialflores/,Tutorial del floricultor
+	ventiladores/,Ventiladores
+-,Automotriz,ap-auto
+-,Constrtucción de vías,ap-vias
+	aguilarmnto/,Aguilar Construcciones - Mantenimiento
+	aguilartrldo/,Aguilar Construcciones - Transporte
+	concay/,Concay
+-,Construcción vertical,ap-vert
+	inversiones_p_g/,Inversiones Prada Gómez
+-,Industrial,ap-inds
+	emcocables/,Emcocables
+	plantaasfalto/,Plantas de asfalto
+	workover/,Workover
+-,Química,ap-quim
+-,Textil,ap-text

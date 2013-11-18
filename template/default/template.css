@@ -1,0 +1,52 @@
+/********************************************
+**
+*********************************************/
+
+/* Block distribution */
+body,header,footer,div,article,aside,nav,section{display:block;margin:0;padding:0;border:none}
+p,h1,h2,h3,h4,h5,h6{display:block;margin:0;padding:0;border:none}
+#header{position:relative;width:100%;height:45px;}
+#header #hsite{position:absolute;top:45px;left:0;width:240px;height:102px;}
+#header #hsite a{display:block;width:240px;height:102px;}
+#header .inicio{display:none}
+#main{position:relative;}
+#main.lefted,.col-3 #main,.col-lt #main{margin-left:240px;}
+.col-3 #content,.col-rt #content{margin-right:210px;}
+#right{position:absolute;width:200px;padding:5px;right:0;top:0;}
+#left{position:absolute;left:0;width:240px;top:45px;}
+#left.dropped{top:165px;}
+#footer{margin:1ex 215px 1ex 245px;padding:1ex;border-radius:1ex;}
+
+/* Block coloring and shadowing */
+body{background:#eee;}
+#header{background:#c90;color:#dde;}
+#hsite{background:transparent url('images/oruga-u3.gif') no-repeat 50% 50%;font-size:0;text-indent:-999em;}
+#body{background:#fff;color:#112;}
+#left{background:#fff;}
+#right{background:#fff;}
+#footer{background:#ccc;color:#000;opacity:.5}
+
+
+/* General issues */
+body{font-family:Helvetica,Helv,Arial,sans-serif;font-size:11pt;color:#000}
+:link{color:#009;text-decoration:none}
+:visited{color:#609;text-decoration:none}
+:link:hover{color:#00f;text-decoration:underline}
+:visited:hover{color:#60f;text-decoration:underline}
+.clear{clear:both;}
+hr.clear{margin:1px;padding:0;border:none;}
+
+/* TOP MENU */
+#list-topmenu{display:block;position:absolute;left:20px;top:5px;width:auto;height:25px;list-style:none;margin:0;padding:0;}
+#list-topmenu li{display:block;float:left;margin:0;padding:0;position:relative;}
+#list-topmenu a{display:block;padding:0 1ex;}
+#list-topmenu a:hover{text-decoration:none;background:#eda;}
+#list-topmenu  .menu-1{list-style:none;margin:0;padding:5px;background:#db5;display:none;position:absolute;width:auto;border-radius:5px;}
+#list-topmenu  .menu-1 li{float:none;width:250px;}
+#list-topmenu  .menu-2{list-style:none;margin:0;padding:5px;background:#db5;display:none;position:absolute;width:auto;top:5px;right:-120px;border-radius:5px;}
+#list-topmenu  .menu-2 li{float:none;width:120px;}
+li:hover>ul,ul:active{display:block!important}
+
+/* LEFT */
+#secciones a{display:block;padding:2px 3px;}
+#secciones a:hover{text-decoration:none;background:#eee;}

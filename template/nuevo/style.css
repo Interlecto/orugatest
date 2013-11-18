@@ -1,0 +1,32 @@
+/*** Style ***/
+body{font-family:Helvetica,Arial,sans-serif;font-size:16px;color:#000}
+:link{text-decoration:none;color:#049}
+:visited{text-decoration:none;color:#229}
+:visited:hover,:link:hover{text-decoration:underline;color:#05c}
+.portal #header{background-color:#cb9}
+#sitetitle{background:url('images/oruga-u3.gif');font-size:0;text-indent:-999em}
+#hometitle h1{background:url('images/oruga-ani7.gif');font-size:0;text-indent:-999em}
+#hometitle h2{text-transform:uppercase;font-size:1.6em;line-height:30px}
+#hometitle h2 span{display:block;height:0;overflow:hidden}
+#tagline{font-weight:bold;font-size:12px;line-height:20px}
+#orientation{line-height:0}
+.portal #orientation{background:#bbb url('images/banner.png') repeat-x 50% 50%}
+#orientation a{background:url('images/b-flat.png') no-repeat left bottom;text-align:center;font-size:0;text-indent:-999em;line-height:999px}
+#orientation a:hover{background-position:left top;text-decoration:none}
+#orientation #login{border:1px solid #000;line-height:28px;font-size:16px;text-indent:0;background:#aaa}
+#orientation #go-twitter{background-image:url('images/b-twitter.png')}
+#orientation #go-facebook{background-image:url('images/b-facebook.png')}
+#orientation #go-moreinfo{background-image:url('images/b-info.png')}
+#orientation #go-contact{background-image:url('images/b-contact.png')}
+#footer:before{border-color:rgba(187,187,187,.5)}
+#footer{text-align:center}
+
+/*** Fancy Style ***/
+#orientation a{border-radius:7px}
+#orientation #login{background-color:rgba(170,170,170,.25);box-shadow:
+	3px 3px 3px rgba(0,0,0,.5),
+	inset 2px 2px 1px rgba(255,255,255,.5),
+	inset -2px -2px 1px rgba(0,0,0,.5)
+}
+#orientation #login:hover{background-color:rgba(170,170,170,.75)}
+

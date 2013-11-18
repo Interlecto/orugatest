@@ -1,0 +1,13 @@
+RewriteEngine On
+
+RewriteRule	^.*\.dat$	index.php?line=status/403	[PT,QSA]
+RewriteCond	%{REQUEST_FILENAME}	-f
+RewriteRule	.?	-	[L]
+RewriteRule	^elite-sitrad/?$	mail/messages.php	[PT,QSA,L]
+RewriteRule	^elite-sitrad/([0-9]+)$	mail/message.php?n=$1	[PT,QSA,L]
+RewriteRule	^(.*)$	index.php	[PT,QSA]
+
+ErrorDocument 401 /status/401
+ErrorDocument 403 /status/403
+ErrorDocument 404 /status/404
+ErrorDocument 500 /status/500

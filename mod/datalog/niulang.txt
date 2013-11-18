@@ -1,0 +1,261 @@
+# programa 1: Hola mundo:
+CON << "¡Hola, Mundo!"
+fin
+
+# programa 2: Hola mundo en un diálogo:
+use dialogo como d
+d.titulo = "Hola"
+d.panel << "¡Hola, Mundo!"
+fin << d
+
+# programa 3: Hola mundo como una página web, sin plantilla:
+use web como w
+w << "<!DOCTYPE html><html><head><<title>Hola</title>"
+w << "<body><p>¡Hola, Mundo!</html>"
+fin
+
+# programa 4: Hola mundo como una página web, con plantilla:
+use mi_plantilla como w
+w.titulo = "Hola"
+w << "¡Hola, Mundo!"
+fin << w
+
+#programa 5. Hola mundo interactivo:
+CON << "¡Hola! ¿Cómo te llamas?"
+CON >> nombre
+CON << "Hola" << nombre
+
+#programa 6. Versión con diálogos:
+use dialogo como d1
+d1.titulo = "Hola"
+d1.panel << "¡Hola!"
+d1.panel << dialogo.caja_texto("¿Cómo te llamas?) como nombre
+para d1.ok:
+	condición: d1.nombre no es vacío, si no: gris
+	use dialogo como d2
+	d2.titulo = "Hola "&nombre
+	d2.panel << Hola << nombre << '.'
+	pase fin a d2
+fin << d1
+
+#programa 7. Versión web, sin plantillas
+use web como w
+w << "<!DOCTYPE html><html><head><<title>Hola</title>"
+si w.get.nombre es vacío:
+	w << "<body><p>¡Hola!</p>"
+	w << "<form><label>¿Cuál es tu nombre? <input name=nombre></label><input type=submit></form></html>"
+si no:
+	w << "<body><p>¡Hola, "&w.get.nombre&"!</html>"
+fin
+
+#programa 8. Versión web, con plantilla
+use mi_plantilla como w
+w.titulo = "Hola"
+si w.get.nombre es vacío:
+	w << "¡Hola!"
+	w << (w.form << w.caja_texto("nombre","¿Cómo te llamas?") << w.ok)
+si no:
+	w << ¡Hola," << w.get.nombre << "!"
+fin
+
+#programa 9: La plantilla para los programas 4 y 8
+use web como clase mi_plantilla alias p
+use flujo_entrada como p.buffer
+conecte p.entrada a p.buffer
+para p.fin:
+	web << "<!TYPEDOC html><html><head>"
+	si p.titulo no es vacío:
+		web << "<title>" << p.titulo << "</title>"
+	web << "<head>"
+	para cada p.buffer como línea:
+		si línea[0:1] no es '<':
+			web << "<p>" << línea << "</p>" << nl
+		si no:
+			web << línea
+	web << "</html>"
+
+#########################################################################
+
+mi servidor http
+soporte multisitio por dominio y por directorio, soporte de dominios dinámicos:
+asignación de sitios a sistemas de archivos o a un cms integrado.
+interación de cms por módulos compilados a máquina, a PYC o interpretados.
+base de datos integradas.
+
+ejemplo: sistema multiblog con directorios de recursos compartidos:
+	redireccionar "(https?://)www?\.(\w+\.miblog.dom)" a "$1$2"	// elimina el www de los subdominios dinámicos
+	redireccionar "(https?://)(?:ww\.)?(miblog.dom)" a "$1www.$2" // agrega www al dominio principal
+	redireccionar "(https?://)(mail|pop|imap|smtp)(.miblog.dom)" a "$1webmail$2
+	asignar "https?://(.*\.|)miblog.dom/plantillas" a filesystem("/home/www/plantillas/")
+	asignar "https?://www.miblog.dom" a ilms
+	asignar "https?://sql.miblog.dom" a sqladmin
+	asignar "https?://webmail.miblog.dom" a webmail
+	asignar	"https?://(\w+)\.miblog.dom" a cmsblog[$1]
+
+ilms es un cms general
+sqladmin es una aplicación para gestión web de la base de datos interna, y se registra como un cms modular.
+webmail es una aplicación para revisar y enviar correos y se registra como un cms modular
+cmsblog es un cms especializado para blogs y, en este caso, crea instancias basadas en el nombre.  Si cmsblog no encuentra una instancia, se encarga del mensaje de error.
+
+los módulos de cms pueden ser:
+programas compilados en código de máquina nativo.
+programas precompilados en pseudocódigo de máquina, para el cual exista un intérprete adecuado, por ejemplo pyc (python), java, etc.
+scripts para los cuales exista un intérprete adecuado, por ejemplo perl, ruby, php
+
+Módulos cms preexistentes:
+ ilms	(parte integral del servidor, es extensible por submódulos)
+	ch	ilms/cache		sistema de cacheo de páginas y segmentos de páginas
+	P	ilms/portal		módulo para creación de portales
+	C	ilms/content	módulo para gestión de páginas de contenido semiestático
+	U	ilms/users		gestión de registro de usuarios (nota, los usuarios registrados tienen, por defecto, alcance global en todo el servidor)
+	uG	ilms/usergroups	extensión del registro de usuarios para soporte de grupos
+	B	ilms/posts		sistema de gestión de contenido "noticioso" o "tipo blog" con o sin caducidad.
+	ca	ilms/catalog	sistema para gestión de un catálogo de productos
+	an	ilms/announces	sistema para gestión de anuncios de compra y venta
+	mk	ilms/market		carrito de mercado e integración con pasarelas de pago
+	co	ilms/contact	formulario de contacto
+	sk	ilms/skins		permite gestionar y cambiar dinámicamente las plantillas de presentación (skins)
+	18	ilms/i18n		permite gestionar sitios multiidioma incluyendo 
+	ln	ilms/lang		soporte básico de i18n, tiene submódulos como lang/en, lang/es, etc. que pueden ser usados por contenido y plantillas para presentar información en un determinado idioma (p. ej. nombres de los meses)
+	F	ilms/forum		soporte para foros de discusión
+	rm	ilms/comments	soporte para comentar páginas y posts
+	fo	ilms/forms		soporte para formularios complejos o con verificación dentro de C, B y otros sistemas de contenido generados por usuario.
+	G	ilms/gallery	permite una visión de archivos multimedia relacionados
+
+Preconfiguraciones de ilms:
+ silms es ilms sin soporte de módulos adicionales e incluye:
+	silms/cache	(siempre activo)
+	silms/portal	activable
+	silms/content	activable
+	silms/users		(si usergroups está activado en otro sitio del servidor, todos los usuarios de cada sitio silms estarán asignados a un grupo asignado del servidor)
+	silms/contact	activable
+	
+ ilblog, es un ilms preconfigurado para trabajar como un blog estilo wordpress o tumblr.  No tiene restricciones en cuanto a extensibilidad o facilidad de modificaciones.
+	portal está preconfigurado como un mirror de posts y los módulos cache, content, users, posts, comments y contact están preactivados.
+ ilwiki, es un ilms preconfigurado para trabajar como un wiki estilo MediaWiki. No tiene restricciones en cuanto a extensibilidad o facilidad de modificaciones.
+	los módulos preactivados son cache, portal, content, comments y users, y content está abierto para que cualquier usuario pueda modificar
+ ilforum, es un ilms preconfigurado para trabajar como un foro estilo phpbb. No tiene restricciones en cuanto a extensibilidad o facilidad de modificaciones.
+	portal se preconfigura como un mirror de forum y los módulos preactivados son forum, users, y usergroups.
+
+Otros módulos
+ filesystem	relaciona los URI con carpetas y archivos de un sistema de archivos y el contenido registrado lo entrega con el respectivo tipo MIME o, si es ejecutable en servidor, lo ejecuta.
+ s-fs		como filesystem pero nunca ejecuta código
+ x-fs		como filesystem pero agrupa archivos generales (p. ej. misma gráfica en diferentes resoluciones, o mismo documento en diferentes formatos) y ofrece módo de vista previa.  No ejecuta código almacenado.
+ webmail	permite leer, gestionar, redactar y enviar correos desde el servidor interno o configurandose como cliente de un servidor POP3, IMAP o SMTP.
+ sqladmin	permite gestionar y administrar bases de datos de acuerdo a la base de datos interna
+ 
+======================================
+
+El sistema incluye:
+servidor HTTP, HTTPS, DNS, SSH, FTP, Telnet, SMTP, POP3, IMAP y otros. (cualquiera de ellos puede desactivarse para intalar otro deamon, o puede cambiarse de puerto para coexistir)
+
+[www.]LOQUESEA significa que los sitios LOQUESEA y ww.LOQUESEA serán redirigidos a www.LOQUESEA
+{www.}LOQUESEA significa que los sitios www.LOQUESEA y ww.LOQUESEA serán redirigidos a LOQUESEA
+LOQUESEA.[algo|otracosa]	significa que el sitio LOQUESEA.otracosa será dirigido a LOQUESEA.algo
+LOQUESEA.(algo|otracosa)	significa
+
+[a]	si no existe opción, se agrega a
+[a|b] las opciones b y nula se cambian por a
+{a} si existe a se borra
+{a|b} si existen a o b se borran
+{$1} se elimina $1 del url pero se entrega como parámetro a la aplicación
+[$1] se deja $1 y se entrega como parámetro a la aplicación
+(a|b) la opción a y la opción b son igualmente válidas
+($1:a|b) la opción a y la opción b son igualmente válidas y se pasa como parámetro a la aplicación
+
+SERVIDOR ORUGA AMARILLA
+[www.]orugaamarilla.com	=> ilms[oruga]	# página de oruga amarilla
+{www.}[$1.]orugaamarilla.com => silms/portal:[$1]	# pseudoportal
+{www.}[$1.]orugaamarilla.com/remote => remotecontroller:[$1]
+{www.}[$1.]orugaamarilla.com/report => incidentreporter:[$1]
+{www.}forum.orugaamarilla.com/ => ilforum
+{www.}api.orugaamarilla.com/ = remotecontroller/input
+[www.]planetadelarte.com => ilms[planeta]
+[www.]invermeq.com => ilms[invermeq]
+
+=> uses module...
+=>> redirects to internal site...
+=>$> mirrors internal site...
+=>>> redirects to external site...
+=>#> dns cnames to external site...
+
+SERVIDOR INTERLECTO
+{www.}interlecto.org => ilms:[ilms]
+{www.}interlecto.[net|co] => ilms:[interlecto]
+{www.}chlewey.net => ilms:[dotnet]
+{www.}chlewey.org => ilms:[chlewey]
+{www.}30ciudades.chlewey.[net|org] => ilms:[30]
+{www.}apps.chlewey.[net|org] => ilms + fbml
+{www.}blog.chlewey.[net|co] => ilblog:[blog]
+{www.}blog.chlewey.org => ilblog:[personal]
+{www.}fotw.chlewey.[net|org|co] => s-fs:[fotw]
+{www.}media.chlewey.[net|org|co] => x-fs:[media]
+{www.}heralcol.chlewey.[net|org|co] =>> heralcol.co
+{www.}heralcol.co => ilms:[heralcol]
+{www.}[id|portal|profiles|site].chlewey.[net|org|co] => silms:[id]
+{www.}news.chlewey.[net|org|co] =>> blog.chlewey.net
+{www.}old.chlewey.[org|net|co] => filesystem:[dotorg]
+{www.}rese.chlewey.[net|org|co] =>>> rese.com.co
+{www.}test.chlewey.[net|org|co] => filesystem:[test]
+{www.}tokcir.chlewey.[net|org|co] => ilwiki:[tokcir]
+{www.}wiki.chlewey.[net|org|co] => ilwiki:[wiki]
+{www.}wmc.chlewey.[net|org|co] =>>> wikimedia.org.co
+[$1.]xli.chlewey.[net|org|co] =>> $1.ewey.co
+{www.}30.ewey.co =>$> 30ciudades.chlewey.net
+{www.}b.ewey.co =>$> blog.chlewey.net
+{www.}m.ewey.co =>$> media.chlewey.net
+{www.}chl.ewey.co =>$> chlewey.net
+{www.}hojablanca.ewey.co =>#> hojablanca.net
+{www.}pp.ewey.co =>#> partidopirata.org.co
+
+======
+ilms/content
+
+=>#> funciona a nivel de DNS, el servidor no recibe el pedido
+
+GET host[/uri][?params]
+	revisa tabla de redirecciones de host/uri
+		si es una redirección =>>, devuelve un 301 Moved permanently con la nueva dirección
+		si es una redirección =>.>, devuelve un 307 Temporary redirect con la nueva dirección
+		si es una redirección =>#>, devuelve un 302 Found con la nueva dirección
+		si es un mirror =>$> transforma host/uri y continua
+	revisa la tabla de gestores de host/uri
+		determina si extrae algún parámetro
+		entrega uri y los parámetros al respectivo gestor
+		
+	si el gestor es ilms o sus derivados:
+		si'ch': compara uri y los parámtros contra el sistema de cache, si sí:
+			compara fecha en caché con fecha de request, si esta última existe y es posterior devuelve un 304 Not modified
+			de lo contrario devuelve el archivo cacheado con un 200 Ok.
+			
+	si el gestor es filesystem, s-fs o x-fs:
+		si uri corresponde a un archivo dentro del sistema de archivos:
+			si está en el registro de scripts (sólamente en filesystem), ejecuta el script y este o su intérprete se encargan de cualquier respuesta.
+			si los metadatos o la extensión corresponden a un tipo de archivos registrado: devuelve el archivo con su respectivo tipo MIME
+			si no corresponden a un archivo registrado usa un método heurístico para determinar si parece HTML, plain Text o binario.
+				si HTML, devuelve el archivo con un código mime text/html
+				si texto, devuelve el archivo con un código mime text/plain
+				si binario, devuelve el archivo con un código mime application/octet-stream
+		si uri corresponde a un directorio dentro del sistema de archivos (o es nulo, equivalente a folder raíz)
+			se revisan los permisos del directorio; si el usuario tiene permisos:
+				se envía un listado, usando plantilla predeterminada (y filtrado y agrupado en caso de x-fs), con el contenido del directorio, incluyendo subdirectorios.
+			si no:
+				se devuelve un 403 Forbidden
+		si no corresponde, filesystem y s-fs responden con un 404 Not found.
+		x-fs intenta descifrar si el uri corresponde a algo y si lo encuentra lo reporta, bien con un 200, bien con un 301, dependiendo de l
+		
+HEAD: opera como GET salvo que nunca se envía el contenido.
+POST: opera como GET salvo que ningún módulo cms debería revisar cache de contenidos. (puede usarse cache de elementos de plantilla)
+
+PUT, PATCH y DELETE están soportados y filtrados por permisos de usuario y carpeta.  Se responde con un 201 o un 405.
+	en el caso de ilms, PUT, PATCH y DELETE son soportados por los módulos C, B, G.
+
+TRACE, OPTIONS son soportados.  Puedes ser deshabilitados.
+
+CONNECT es soportado.
+
+
+maria alejandra serrano
+tel 312 394 7572
+sabado 9, 15:00
+Kr 56 #145-51

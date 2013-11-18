@@ -1,0 +1,39 @@
+		<article>
+			<form class=formulario method=POST action="enviar.html">
+				<h2>Envíanos tus inquietudes</h2>
+				<table>
+				<tr>
+				<td>Oruga Amarilla:</td>
+				<td><input type=radio name=type value=inquietud id=inquietud checked=checked><label for=inquietud> inquietud</label></td>
+				<td><input type=radio name=type value=comprar id=comprar><label for=comprar> comprar</label></td>
+				<td><input type=radio name=type value=vender id=vender><label for=vender> vender</label></td>
+				</tr>
+				<tr>
+				<td>La página:</td>
+				<td><input type=radio name=type value=comment id=comment><label for=comment> comentario</label></td>
+				<td><input type=radio name=type value=corregir id=corregir><label for=corregir> corrección</label></td>
+				</tr>
+				<tr>
+				<td rowspan=4>Tus datos:</td>
+				</tr>
+				<tr>
+				<td><label for=nombre>Nombre</label></td>
+				<td colspan=2><input name=nombre id=nombre value="{var:from:nombre}"></td>
+				</tr>
+				<tr>
+				<td><label for=email>Email</label></td>
+				<td colspan=2><input name=email id=email value="{var:from:email}"></td>
+				</tr>
+				<tr>
+				<td><label for=phone>Teléfono</label></td>
+				<td colspan=2><input name=phone id=phone value="{var:from:phone}"></td>
+				</tr>
+				</table>
+				<textarea name=comment></textarea>
+				<p>
+					<input type=hidden name=emailto value="{var:emailto}">
+					<input type=submit name=go value=Enviar>
+				</p>
+			</form>
+		</article>
+	

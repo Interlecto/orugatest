@@ -1,0 +1,91 @@
+/*** Block & Flow Arrangement ***/
+*{margin:0;padding:0}
+header,footer,article,section,aside,nav{display:block}
+img{border:none}
+#header,#body,#footer{position:relative;margin:0 auto;width:100%;max-width:11080px}
+#header{min-height:102px}
+#hometitle{height:95px}
+#hometitle h1{display:none}
+#hometitle h2{padding:5px 5px 0 15px}
+#tagline{min-height:20px;padding:0 5px}
+@media screen and (min-width:960px) {
+	#hometitle h1{position:absolute;display:block;top:10px;height:180px;left:10px;width:320px}
+	#hometitle h2{padding-left:345px}
+	#tagline{padding-left:335px}
+}
+#sitetitle{position:absolute;top:0px;left:0px}
+#sitetitle a{display:block;height:102px;width:240px}
+#usernav{padding:5px 5px 5px 245px;text-align:right}
+@media screen and (max-width:539px) {
+	#usernav span{display:none}
+}
+@media screen and (max-width:399px) {
+	#usernav{padding:105px 5px 5px}
+	#usernav .welcome{display:inline}
+}
+#orientation{text-align:center}
+#orientation a{display:inline-block;width:50px;height:50px;overflow:hidden}
+@media screen and (min-width:400px) {
+	.portal #orientation{height:85px}
+	#orientation a{position:absolute;top:45px}
+	#orientation #go-twitter{right:170px}
+	#orientation #go-facebook{right:115px}
+	#orientation #go-moreinfo{right:60px}
+	#orientation #go-contact{right:5px}
+}
+@media screen and (max-width:464px) {
+	.page #orientation a{top:105px}
+	.page #orientation{padding-top:102px;height:55px}
+}
+#orientation #login{position:absolute!important;top:5px!important;right:10px;width:80px;height:30px}
+@media screen and (min-width:540px) {
+	#main #newsfeed{float:left;width:55.5555556%}
+	#main #news{float:left;width:44.4444444%}
+}
+@media screen and (min-width:720px) {
+	#main #remote{float:left;width:25%}
+	#main #newsfeed{float:left;width:41.6666667%}
+	#main #news{float:left;width:33.3333333%}
+}
+#main:after{display:block;height:0;content:' ';clear:both}
+
+.col2r #main,
+.col2l #main,
+.col3 #main{float:left;width:100%;padding:0;margin-right:-100%;}
+.col2r #content{margin:0 300px 0 0}
+.col2l #content{margin:0 0 0 200px}
+.col3 #content{margin:0 300px 0 200px}
+#column1,#column2{display:none}
+.col2l #column1,
+.col3 #column1{display:block;float:left;width:200px}
+.col2r #column2,
+.col3 #column2{display:block;float:right;width:300px}
+@media screen and (max-width:899px) {
+	.col3 #content{margin-right:0}
+	.col3 #column2{float:none;clear:both;width:auto}
+}
+@media screen and (max-width:699px) {
+	.col2r #content{margin-right:0}
+	.col2r #column2{float:none;clear:both;width:auto}
+}
+@media screen and (max-width:599px) {
+	.col2l #content,
+	.col3 #content{margin-left:0}
+	#column1{float:none;clear:both;width:auto}
+}
+
+#footer{clear:both}
+#footer:before{clear:both;width:80%;max-width:960px;height:0;margin:1ex auto;border:inset 1px #ddd;display:block;content:' '}
+
+.wid,.subwid{display:block;list-style:none}
+.wid li{display:block}
+.wid{margin:0 5px 5px 0;padding:0 5px}
+.wid a{display:block}
+.subitem{padding-left:20px;min-height:20px}
+@media screen and (min-width:480px) {
+	#main .wid .item{width:33.3333333%;float:left}
+	#main .wid:after{display:block;height:0;content:' ';clear:both}
+}
+@media screen and (min-width:720px) {
+	#main .wid .item{width:100%;float:none}
+}

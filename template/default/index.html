@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>{var:pagetitle}</title>
+<link href="{var:path:template}/template.css" type="text/css" rel=stylesheet>
+<link href="{var:path:template}/content.css" type="text/css" rel=stylesheet>
+<link rel="shortcut icon" href="{var:path:root}/favicon.ico">
+<!--[if lte IE 8]><script type="text/javascript" src="{var:path:js}/html5.js"></script><![endif]-->
+</head>
+<body class={if:pre}{var:pre}{else}root{fi}>
+<header id=header>
+	{if:site}<hgroup id=hsite>{area:site}</hgroup>{else}<h1 class=inicio>Bienvenido a {var:sitename}</h1>{fi}{br}
+</header>
+<div id=body class={if:left}{if:right}col-3{else}col-lt{fi}{else}{if:right}col-rt{else}wide{fi}{fi}>
+<div id=main class={if:site}{if:!left}lefted{else}normal{fi}{else}normal{fi}>
+<article id=content>{if:title}{area:title}{fi}{content}</article>
+{if:right}<aside id=right>{area:right}</aside>{fi}
+{if:none}<hr class=clear>{fi}
+</div>
+{if:left}<aside id=left class={if:site}dropped{else}normal{fi}>{area:left}</aside>{fi}{br}
+<nav>{area:usernav}</nav>
+{if:none}<hr class=clear>{fi}
+</div>
+<footer id=footer>{area:footer}</footer>
+{var:scripts}
+</body>
+</html>

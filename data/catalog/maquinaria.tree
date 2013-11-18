@@ -1,0 +1,20 @@
+vias,Construcción de vías
+	aplanadora
+	buldocer,bulldozer
+	camabaja
+	topadora,cargador
+	minitopadora,minicargador
+	motoniveladora
+	retroexcavadora
+	volqueta
+	vibrocompactador
+	retrocargador
+construccion,Construcción vertical
+	grúa torre,,grúas torre
+industria,Sector industrial
+	montacargas,,montacargas
+	troqueladora
+	camara infraroja
+agro,Sector agrícola
+	calefactor
+	tractor

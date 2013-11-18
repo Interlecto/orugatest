@@ -1,0 +1,1 @@
+'header footer section aside nav hgroup'.replace(/\w+/g,function(n){document.createElement(n)})
