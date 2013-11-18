@@ -1,1 +1,0 @@
-{"keys":{"mt530super":["id","temperature","humidity","THERM","HUMID","AUX","BUZZ","time","period"]},"60515":{"mt530super":[2,21.4,53.7,false,false,true,false,1362674915.34,60000]}}
