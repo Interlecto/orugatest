@@ -1,13 +1,8 @@
 site_config.php
-<<<<<<< HEAD
+favicon.gif
 *.gif
 *.jpg
 *.JPG
 *.jpeg
-
-=======
-favicon.gif
 *.zip
 *.msi
-*.jpg
->>>>>>> 5a6340dd484477b84354c6aa4065fc916ff6170b
