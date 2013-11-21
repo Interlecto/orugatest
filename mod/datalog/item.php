@@ -130,7 +130,7 @@ function user_bases($user=null,$base=null) {
 function base_user_level($base,$user=null) {
 	$cu = il_get('user');
 	if(empty($user)) $user = $cu;
-	
+
 	$group = db_select_one('user_group','group',array('station'=>"=$base"));
 	$ul = db_select_key('user_group','group',array('user'=>"=$user"));
 	$aul = isset($ul['this_site'])? $ul['this_site']['role']: 0;
@@ -246,7 +246,7 @@ function item_write($status,$sign,$inst,$base) {
 	$maq = sprintf('/item/%s/%03d/',$base['id'],$inst['address']);
 	$sta = $maq.(isset($status['id'])? $status['id']: '!'.$sd);
 	$dat = date('j \d\e M, g:i:s a',$sd);
-	
+
 	$mpars = array();
 	$mpars[0] = (!empty($inst['description'])? $inst['description']: 'Instrumento '.$inst['address'])." (";
 	$mpars[0].= (!empty($base['name'])? $base['name']: 'Base '.$inst['id']).")";
@@ -254,7 +254,8 @@ function item_write($status,$sign,$inst,$base) {
 		if($k=='id') continue;
 		$or = il_get2('or',$u=sprintf('%s@%s/%03d',$k,$base['id'],$inst['address']));
 		if($or && $or['type']=='common') {
-			$mpars[] = sprintf("%s: %s",$or['name'],sprintf($or['format'],$v));
+			$mpars[] = sprintf("%s: %s",$or['name']?$or['name']:$k,$or['format']?sprintf($or['format'],$v):$v);
+#			$mpars[] = "<!-- $u=".print_r($or,true)."-->";
 		}
 	}
 	if(isset($status['time_beg'])) {

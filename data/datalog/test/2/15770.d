@@ -1,1 +1,0 @@
-{"keys":{"alarm":["id","description","time_beg","time_end"]},"66938":{"alarm":[2,"Temperatura ambiente alta",1362594834.55,1362594938.102]}}
