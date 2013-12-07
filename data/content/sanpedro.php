@@ -1,5 +1,6 @@
 <?php
 ob_start();
+onuserlevel(1,'/base/sanpedro/','elite');
 
 function sitraddate($f) {
 	$n = 86400*($f-70*365-19);

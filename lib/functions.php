@@ -20,7 +20,7 @@ function ensure_path($path) {
 	return $d;
 }
 
-// ensure file makes sure that $filepath exists where $filepath is
+// ensure_file makes sure that $filepath exists where $filepath is
 // either a string with path and filename or an array of tockens
 // for the path and filename.
 function ensure_file($filepath) {
@@ -37,6 +37,18 @@ function ensure_file($filepath) {
 	return $cfn;
 }
 
+// listdir reads a directory and builds an array with the results
+// which includes complete paths and filetype and can recurse into
+// subdirectories
+// $path      is the path to the directory, it must be a string.
+// $ordered   determines if the array should be ordered by filenames
+//            True or a possitive number gives direct order
+//            a negative number indicates reverse order
+//            False or 0 if no order is needed (used system default)
+// $recursive must be set to true to recurse into dubdirectories
+// $rlevel    Means how many levels of recursion are allowed.
+//            it always execute once. 0 (or negative) list only
+//            $path directory. 1 recurses once, etc.
 function listdir($path,$ordered=0,$recursive=false,$rlevel=10) {
 	if(!is_dir($path))
 		return Null;
@@ -53,6 +65,9 @@ function listdir($path,$ordered=0,$recursive=false,$rlevel=10) {
 	return $r;
 }
 
+// str2uri cleans a string into an ASCII all-lowercase uri-safe string
+// $str  is the string to convert
+// $esp  (op) determines how to convert spaces, defaults to '-'.
 function str2uri($str,$esp='-') {
 	return preg_replace(
 		array(
@@ -94,6 +109,14 @@ function str2uri($str,$esp='-') {
 		mb_convert_case($str,MB_CASE_LOWER,'UTF-8'));
 }
 
+// dat2array converts the contents of a propietary .dat file into an
+// array.  Most .dat files have either be replaced to .json files or
+// info stored in the database.
+// $file    is the filename (and path) of the .dat file
+// $ar      is the array to fill.  This function adds into existing
+//          information.
+// $spanned must be set to true if lines in final text must be
+//          surrounded by <span> HTML tags.
 function dat2array($file,&$ar,$spanned=false) {
 	$f=file($file);
 	$ar[$g="status"]='';
@@ -109,6 +132,13 @@ function dat2array($file,&$ar,$spanned=false) {
 	elseif($spanned) $ar['text'] = "<span>".str_replace("\n","</span>\n<span>",trim($ar['text']))."</span>";
 }
 
+// array2dat writes down a file with propietary .dat 
+// $file  is the filename (and path) of the .dat file
+// $ar    is the array from where the data is taking from
+// $order is an array containing which fields, if exist, must be
+//        stored first (in the given order)
+// $deny  is a list of fields that should not be stored in the .dat
+//        file.
 function array2dat($file,$ar,$order=array('status'),$deny=array('line')) {
 	$t = "";
 	foreach($order as $key)
@@ -130,15 +160,34 @@ function array2dat($file,$ar,$order=array('status'),$deny=array('line')) {
 	fclose($fp);
 }
 
+// onuserlevel checks if user is an administrator or if s/he has enough
+// user level in a group to look at certain content.
+// $minuserlevel is the minimum user level required
+// $redirecturi  is the URI to which the page redirects if the user
+//               does not meet the required user level
+// $group        is the group to which the user level is compared to
 function onuserlevel($minuserlevel,$redirecturi='/',$group='this_site') {
 	$ugrd = il_get2('user','group',null);
-	if(isset($ugrd['this_site']) && $ugrd['this_site']>=$minuserlevel)
+	if(isset($ugrd['this_site']) && $ugrd['this_site']>=8)
 		return;
 	if(isset($ugrd[$group]) && $ugrd[$group]>=$minuserlevel)
 		return;
 	redirect($redirecturi);
 }
 
+// checkorredirect ensures the uri path is appropiate for the current
+// request.  This particularly fixes file extentions and alternative
+// formats so that request to the same resource all use the same URI.
+// $url       is the required URI, it is either a string already
+//            formated to the desired uri, or in combination to
+//            $pattern, it is the trasnformation target.
+//            if extension is unimportant, $uri should end in '.*'
+// $pattern   if given it is a preg regex to which the current URI is
+//            compared.  If current URI matches $pattern no redirection
+//            is performed.
+// $transform If given, this is a preg regex that finds the pattern
+//            that should be found and replaced by $url in the current
+//            URI.
 function checkorredirect($url,$pattern=null,$transform=false) {
 	$cannon = il_line_get('cannon');
 	if(substr($url,-2)=='.*')
@@ -151,7 +200,9 @@ function checkorredirect($url,$pattern=null,$transform=false) {
 			redirect($url);
 	}
 }
-// alias for http_redirect. Allows to comment out the actual redirect for debugging processes
+
+// alias for http_redirect. Allows to comment out the actual redirect
+// for debugging processes
 function redirect($url, $params=null, $session=false, $status=0) {
 	if(!$params) $params=array();
 	if(function_exists('http_redirect')) return http_redirect($url,$params,$session,$status);
@@ -175,6 +226,14 @@ function redirect($url, $params=null, $session=false, $status=0) {
 	die( "Redirect to <a href=\"$fullurl\">$url</a> (from ".il_line_get('cannon').")" );
 }
 
+// This function souround $content into HTML <section> tags.
+// the aditional parameters include:
+// $title      if present, it adds a heading to the section.
+// $level      it is the heading level of the title.
+// $title_link if present, it adds a HREF anchor to the title.
+// $class      if present it adds this as a class to the section.
+//             it can either be a string or an array of strings (clases)
+// $id         if present, it provides an id for the section.
 function make_section($content,$title=null,$level=2,$title_link=null,$class=null,$id=null) {
 	$s = "<section";
 	if($class) {
@@ -196,22 +255,35 @@ function make_section($content,$title=null,$level=2,$title_link=null,$class=null
 	return $s;
 }
 
+// json_write takes any $data and writes down it in JSON format
+// in file $filename.
+// $options are pased as $options for the json_encode rutine.
 function json_write($filename,$data,$options=0) {
 	if(!file_exists($filename)) ensure_file($filename);
 	file_put_contents($filename,json_encode($data,$options));
 	return true;
 }
 
+// json_read opens a JSON file $filename and returns an assosiative
+// array with the date in it.
+// on failure it returns $default (which defaults to an empty array)
 function json_read($filename,$default=array()) {
 	if(!file_exists($filename)) return $default;
 	$r = json_decode(file_get_contents($filename),true);
 	return isset($r)? $r: $default;
 }
 
+// array_margeinto adds the filds of second parameter $array2 into
+// first parameter $array1, modifying $array1 as well as returning it.
 function array_mergeinto(&$array1,$array2) {
 	return $array1 = array_merge($array1,$array2);
 }
 
+// update_avatar recieves an array including avatar data from an
+// uploaded file and writes down in the filesystem the image as well
+// as it creates a new entry in the database for this new file.
+// It returns the new entry index as well as any error or success
+// message of the operation in an array.
 function update_avatar($avatar) {
 	$name = $avatar['name'];
 	$type = $avatar['type'];

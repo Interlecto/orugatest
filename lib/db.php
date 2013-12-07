@@ -173,9 +173,21 @@ class db extends mysqli {
 	}
 
 	function __construct($a,$b,$c,$d=null) {
+		$now = time();
+		if(isset($_SESSION['db_conid'])) {
+			$con_id = $_SESSION['db_conid'];
+			$c_time = $_SESSION['db_open'] or 0;
+			if($now <= $c_time + 300) { // if less than 5 minutes
+				$a = 'p:'.$a;           // keep a persistent connection
+			}
+		}
 		if(empty($d)) mysqli::__construct($a,$b,$c);
 		else mysqli::__construct($a,$b,$c,$d);
 		if(!isset(db::$first)) db::$first = $this;
+		$_SESSION['db_conid'] = $this->thread_id;
+		$_SESSION['db_open'] = $now;
+		print_r($_SESSION);
+		print_r($this);
 	}
 	
 	function str($string) { return $this->real_escape_string($string); }

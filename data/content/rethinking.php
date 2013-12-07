@@ -5,10 +5,10 @@ ob_start();
 
 $sixtydays = date('Y-m-d H:i:s',time()-60*86400);
 $queries = array(
-	"DROP TABLE IF EXISTS `dl_si_{};`",
-	"DROP TABLE IF EXISTS `dl_sibu_{};`",
-	"DROP TABLE IF EXISTS `dl_sp_{};`",
-	"DROP TABLE IF EXISTS `dl_spbu_{};`",
+#	"DROP TABLE IF EXISTS `dl_si_{};`",
+#	"DROP TABLE IF EXISTS `dl_sibu_{};`",
+#	"DROP TABLE IF EXISTS `dl_sp_{};`",
+#	"DROP TABLE IF EXISTS `dl_spbu_{};`",
 	"CREATE TABLE IF NOT EXISTS `dls_l_{}` LIKE `x_dls_live`;",
 	"CREATE TABLE IF NOT EXISTS `dls_oi_{}` LIKE `x_dls_old_idx`;",
 	"CREATE TABLE IF NOT EXISTS `dls_ov_{}` LIKE `x_dls_old_val`;",
