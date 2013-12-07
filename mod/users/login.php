@@ -5,46 +5,11 @@ function loadusers($force=false) {
 	if(isset($user_db) && !$force) return $user_db;
 	$users = il_select('user');
 	$user_db = array();
-	//echo '$users: "';var_dump($users);echo '"'.chr(10);
 	foreach($users as $ud) $user_db[$ud['id']] = $ud;
-	/*
-	$users = file('data/user/passwd.dat');
-	$user_db = array();
-	$changed = false;
-	$rems = 0;
-	foreach($users as $line) {
-		if(substr($line,0,1)=='#') {
-			$user_db['#'.(++$rems)] = substr(trim($line),1);
-			continue;
-		}
-		$parts=explode(',',trim($line));
-		if(count($parts)<3) {
-			$changed = true;
-			continue;
-		}
-		if((int)$parts[1]==0) {
-			$parts[1]=1;
-			$parts[2]=md5($parts[0].':'.$parts[2]);
-			$changed = true;
-		}
-		$user_db[array_shift($parts)] = $parts;
-	}
-	if($changed) saveusers($user_db);
-	*/
 	return $user_db;
 }
 
 function saveusers($user_db) {
-	/*
-	$fh = fopen('lib/login.dat','wt');
-	foreach($user_db as $user=>$pars) {
-		if(substr($user,0,1)=='#')
-			fwrite($fh,"#$pars\n");
-		else
-			fwrite($fh,$user.','.implode(',',$pars)."\n");
-	}
-	fclose($fh);
-	*/
 	$users = il_select('user');
 	foreach($users as $ud) {
 		$u = $ud['user_name'];
@@ -94,18 +59,6 @@ function set_user($user,$remember=null) {
 	
 	# now, this should go to the user database to get other session parameters such
 	# as user main group, user groups and user permitions
-	/*
-	if(isset($users[$user])) {
-		$params = il_select('');
-		$pars = $users[$user];
-		il_put2('user','name',isset($pars['full_name'])?$pars['full_name']:null);
-		il_put2('user','type',isset($pars['user_type'])?$pars['user_type']:null);
-		il_put2('user','org',isset($pars['organization'])?$pars['organization']:null);
-		il_put2('user','email',isset($pars['email'])?$pars['email']:null);
-		il_put2('user','avatar',isset($pars['avatar'])?$pars['avatar']:null);
-		//il_put2('user','level',count($pars)>2?$pars[2]:0);
-	} else {
-	}*/
 	$params = il_select('user_data',array('param','param_idx','value'),array('user'=>"=$user"));
 	foreach($params as $pr)
 		il_put2('user',$pr['param'].($pr['param_idx']!=1?'-'.$pr['param_idx']:''),$pr['value']);

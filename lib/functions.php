@@ -1,8 +1,11 @@
 <?php
+// is_prefix checks if string $a match the first characters of string $b
 function is_prefix($a,$b) {
 	return substr($b,0,strlen($a))==$a;
 }
 
+// ensure_path makes shoure that the physical path to $path exists
+// otherwise it creates it recursively
 function ensure_path($path) {
 	if(is_array($path)) {
 		$d = '';
@@ -17,6 +20,9 @@ function ensure_path($path) {
 	return $d;
 }
 
+// ensure file makes sure that $filepath exists where $filepath is
+// either a string with path and filename or an array of tockens
+// for the path and filename.
 function ensure_file($filepath) {
 	if(is_array($filepath)) {
 		$fn = array_pop($filepath);
@@ -48,7 +54,6 @@ function listdir($path,$ordered=0,$recursive=false,$rlevel=10) {
 }
 
 function str2uri($str,$esp='-') {
-	//echo $str;
 	return preg_replace(
 		array(
 			'{\s+|\xc2\xa0}',
@@ -123,6 +128,15 @@ function array2dat($file,$ar,$order=array('status'),$deny=array('line')) {
 	$fp = fopen($file,'w');
 	fwrite($fp, $t);
 	fclose($fp);
+}
+
+function onuserlevel($minuserlevel,$redirecturi='/',$group='this_site') {
+	$ugrd = il_get2('user','group',null);
+	if(isset($ugrd['this_site']) && $ugrd['this_site']>=$minuserlevel)
+		return;
+	if(isset($ugrd[$group]) && $ugrd[$group]>=$minuserlevel)
+		return;
+	redirect($redirecturi);
 }
 
 function checkorredirect($url,$pattern=null,$transform=false) {

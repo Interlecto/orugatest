@@ -93,3 +93,9 @@ input.anchor,.tab a{border-radius:1.25ex 1.25ex 0 0/100% 100% 0 0;box-shadow:ins
 .longtext{width:24em}
 .numeric{width:7em;text-align:right}
 
+#content ul{padding-left:2em}
+table.std-h-d{}
+table.std-h-d th{text-align:left;padding:0 1ex}
+
+#content .advice{border:1px solid #e87;border-radius:1ex;background:#ed8;padding:.6ex}
+

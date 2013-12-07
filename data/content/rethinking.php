@@ -1,5 +1,6 @@
 <?php
 checkorredirect("/rethinking.php");
+onuserlevel(7,'/');
 ob_start();
 
 $sixtydays = date('Y-m-d H:i:s',time()-60*86400);
